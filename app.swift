@@ -1,16 +1,74 @@
 //optionals
 
-var name: String? 
+var name: String?  // Declaring an optional String variable named 'name'.
 
-print(name)
+print(name)  // Printing the value of the optional variable 'name' (which could be nil).
 
 //Guards
 
-//oops
+// 'guard' statements are used to provide early exits in a function if a certain condition is not met.
+// They help improve readability by reducing nested conditions.
+
+// Example:
+func processAge(age: Int?) {
+    guard let validAge = age else {
+        print("Invalid age")
+        return
+    }
+    print("Age is valid: \(validAge)")
+}
 
 //protocols
 
+// Protocols define a blueprint of methods, properties, and other requirements.
+// Classes, structs, and enums can adopt protocols, providing a common interface.
+
+// Example:
+protocol Vehicle {
+    var brand: String { get }
+    func start()
+}
+
+class Car: Vehicle {
+    var brand: String = "Toyota"
+    func start() {
+        print("Car engine started.")
+    }
+}
+
 //delegation
+
+// Delegation is a design pattern where an object delegates certain tasks to another object.
+// It's commonly used in iOS development for communication between view controllers.
+
+// Example:
+protocol DataUpdaterDelegate: AnyObject {
+    func didUpdateData(newData: [String])
+}
+
+class DataManager {
+    weak var delegate: DataUpdaterDelegate?
+    
+    func fetchData() {
+        // Fetch data from network or database
+        let newData = ["Item 1", "Item 2", "Item 3"]
+        delegate?.didUpdateData(newData: newData)
+    }
+}
+
+class ViewController: DataUpdaterDelegate {
+    let dataManager = DataManager()
+    
+    func viewDidLoad() {
+        dataManager.delegate = self
+        dataManager.fetchData()
+    }
+    
+    func didUpdateData(newData: [String]) {
+        // Update UI with new data
+    }
+}
+
 
 do {
     try <#expression#>
